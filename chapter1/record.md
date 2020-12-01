@@ -56,3 +56,42 @@
 				- data事件：发送请求数据
 				- end事件：发送请求完毕，并关闭客户端
 				- end()方法：发送请求完毕，应该始终指定这个方法
+	- url模块——url地址解析 4-10~4-12
+	 - 使用url模块只需要在文件中通过require('url')引入即可。url模块是一个分析、解析url的模块，主要提供以下三种方法：
+		- url.parse(urlStr[,parseQueryString][,slashesDenoteHost])：解析一个url地址，返回一个url对象。
+		- url.formate(urlObj)：接收一个url对象为参数，返回一个完整的url地址。
+		- url.resolve(from, to)：接收一个base url对象和一个href url对象，像浏览器那样解析，返回一个完整地址。
+	- url模块——WHATWG URL地址解析
+		-Node.js中的url模块提供了两套API来处理URLs：一套是Node.js遗留的特有API，另一套是在Web浏览器中实现了WHATWG URL Standard的API 
+		```
+		/* url parse */
+		const url = require('url');
+		const myURL = url.parse('https://www.google.com/?q=node.js');
+		console.log(myURL);
+		
+		/* WHATWG URL API */
+		const {URL} = require('url');
+		const myWHATWGURL = new URL('https://www.google.com/?q=node.js');
+		console.log(myWHATWGURL);
+		```
+	- querystring模块——查询字符串处理 4-14*15
+		- querystring模块是一个处理查询字符串的模块。这个模块的主要方法有：
+			- querystring.parse()：将查询字符串反序列化为一个对象，类似JSON.parse()。
+			- querystring.stringify()：将一个对象序列化为一个字符串，类似JSON.stringify()。
+
+# Node.js常用模块
+  - util模块——实用工具及功能 4-16~19
+	- util.inspect()：返回一个对象反序列化形成的字符串。
+	- util.format()：返回一个使用占位符格式化的字符串，类似于C语言的printf。可以使用的占位符有%s、%d、%j。
+	- util.log()：在控制台输出，类似于console.log()，但这个方法带有时间戳。
+	- 除了这些方法外，util模块还提供了一些判断数据类型的函数，如util.isArray()、util.isRegExp()、util.isDate()等。
+  - path模块——路径处理 4-20~22
+	- path.join()：将所有的参数连接起来，返回一个路径。
+	- path.extname()：返回路径参数的拓展名，无拓展名时返回空字符串。
+	- path.parse()：将路径解析为一个路径对象。
+	- path.format()：接收一个路径对象为参数，返回一个完整的路径地址。
+	- 在Node.js中，一个文件对象有root、dir、base、ext、name五个字段，分别对应根目录（一般是磁盘名）、完整目录、路径最后一部分（可能是文件名或文件夹名，是文件名时带拓展名）、拓展名、文件名（不带拓展名）
+  - dns模块
+	- dns.resolve()：将一个域名解析为一个指定类型的数组。
+	- dns.lookup()：返回第一个被发现的IPv4或者IPv6地址。
+	- dns.reverse()：通过IP解析域名。 
