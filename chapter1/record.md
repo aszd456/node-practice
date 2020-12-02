@@ -91,7 +91,59 @@
 	- path.parse()：将路径解析为一个路径对象。
 	- path.format()：接收一个路径对象为参数，返回一个完整的路径地址。
 	- 在Node.js中，一个文件对象有root、dir、base、ext、name五个字段，分别对应根目录（一般是磁盘名）、完整目录、路径最后一部分（可能是文件名或文件夹名，是文件名时带拓展名）、拓展名、文件名（不带拓展名）
-  - dns模块
+  - dns模块 4-23~25
 	- dns.resolve()：将一个域名解析为一个指定类型的数组。
 	- dns.lookup()：返回第一个被发现的IPv4或者IPv6地址。
 	- dns.reverse()：通过IP解析域名。 
+
+# 爬取网页图片
+  - 利用Node.js爬取一个网页，通过第三方模块cheerio.js分析这个网页的内容，最后将这个网页的图片文件保存在本地。
+	- 下载第三方模块
+	```
+		npm install request cheerio
+	```
+	- config.js
+	```
+	const url = 'http://photo.sina.com.cn/';
+	const path = require('path');
+	const imgDir = path.join(__dirname, 'img');
+	module.exports.url = url;
+	module.exports.imgDir = imgDir;
+	```
+	- analyze.js
+	```
+	const cheerio = require('cheerio');
+	function findImg(dom, callback) {
+	    let $ = cheerio.load(dom);
+	    $('img').each(function(i, elem) {
+	        let imgSrc = $(this).attr('src');
+	        callback(imgSrc, i);
+	    });
+	}
+	module.exports.findImg = findImg;
+	```
+	- index.js
+	```
+	var fs = require('fs');
+	const request = require('request');
+	const path = require('path');
+	const config = require('./config');
+	const analyze = require('./analyze');
+	function start() {
+	    request(config.url, function(err, res, body) {
+	        console.log('start');
+	        if(!err && res) {
+	            console.log('start');
+	            analyze.findImg(body, downLoad);
+	        }
+	    });
+	}
+	function downLoad(imgUrl, i) {
+	    let ext = imgUrl.split('.').pop();
+	    request(imgUrl).pipe(fs.createWriteStream(path.join(config.imgDir, i + '.' + ext), {
+	        'encoding': 'utf8'
+	    }));
+	    console.log("Get " + i + " pic...");
+	}
+	start();
+	```
