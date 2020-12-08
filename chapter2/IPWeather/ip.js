@@ -81,6 +81,6 @@ function writeWeather(weathers, callback) {
             region: weather.geo.region
         });
     }
-    //使用fs.writeFile函数将结果写入到weather.json中
+    //使用fs.writeFile函数将结果写入到weather.json中，JSON.stringify(output, null, '  ')使用2个空格缩进
     fs.writeFile('./weather.json', JSON.stringify(output, null, '  '), callback);
 }

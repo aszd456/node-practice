@@ -46,12 +46,12 @@
 	* 其中，fs.ReadStream和fs.WriteStream分别是读取流和写入流，fs.FSWatcher和fs.Stats可以获取文件的相关信息。
 	* stats类中的方法有：
 	  * stats.isFile()：如果是标准文件就返回true，如果是目录、套接字、符号连接或设备等就返回false。
-	  * stats. isDirectory()：如果是目录就返回true
-	  * stats. isBlockDevice()：如果是块设备就返回true。大多数情况下，类UNIX系统的块设备都位于/dev目录下
-	  * stats. isCharacterDevice()：如果是字符设备就返回true
-	  * stats. isSymbolicLink()：如果是符号连接就返回true。fs.lstat()方法返回的stats对象才有此方法
+	  * stats.isDirectory()：如果是目录就返回true
+	  * stats.isBlockDevice()：如果是块设备就返回true。大多数情况下，类UNIX系统的块设备都位于/dev目录下
+	  * stats.isCharacterDevice()：如果是字符设备就返回true
+	  * stats.isSymbolicLink()：如果是符号连接就返回true。fs.lstat()方法返回的stats对象才有此方法
 	  * stats.isFIFO()：如果是FIFO就返回true，FIFO是UNIX中一种特殊类型的命令管道
-	  * stats. isSocket()：如果是UNIX套接字就返回true
+	  * stats.isSocket()：如果是UNIX套接字就返回true
 	  * 使用fs.stat()、fs.lstat()和fs.fstat()方法都将返回文件的一些特征信息，如文件的大小、创建时间或者权限
 	  ```
 	  var fs = require('fs');
